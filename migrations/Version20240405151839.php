@@ -26,10 +26,10 @@ final class Version20240405151839 extends AbstractMigration
         $this->addSql('ALTER TABLE order_product ADD CONSTRAINT FK_2530ADE64584665A FOREIGN KEY (product_id) REFERENCES product (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE product_category ADD CONSTRAINT FK_CDFC73564584665A FOREIGN KEY (product_id) REFERENCES product (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE product_category ADD CONSTRAINT FK_CDFC735612469DE2 FOREIGN KEY (category_id) REFERENCES category (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE purchase ADD costumer_id_id INT DEFAULT NULL, ADD order_id_id INT NOT NULL');
-        $this->addSql('ALTER TABLE purchase ADD CONSTRAINT FK_6117D13BFA53AB1 FOREIGN KEY (costumer_id_id) REFERENCES costumer (id)');
+        $this->addSql('ALTER TABLE purchase ADD customer_id_id INT DEFAULT NULL, ADD order_id_id INT NOT NULL');
+        $this->addSql('ALTER TABLE purchase ADD CONSTRAINT FK_6117D13BFA53AB1 FOREIGN KEY (customer_id_id) REFERENCES customer (id)');
         $this->addSql('ALTER TABLE purchase ADD CONSTRAINT FK_6117D13BFCDAEAAA FOREIGN KEY (order_id_id) REFERENCES `order` (id)');
-        $this->addSql('CREATE INDEX IDX_6117D13BFA53AB1 ON purchase (costumer_id_id)');
+        $this->addSql('CREATE INDEX IDX_6117D13BFA53AB1 ON purchase (customer_id_id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_6117D13BFCDAEAAA ON purchase (order_id_id)');
     }
 
@@ -46,6 +46,6 @@ final class Version20240405151839 extends AbstractMigration
         $this->addSql('ALTER TABLE purchase DROP FOREIGN KEY FK_6117D13BFCDAEAAA');
         $this->addSql('DROP INDEX IDX_6117D13BFA53AB1 ON purchase');
         $this->addSql('DROP INDEX UNIQ_6117D13BFCDAEAAA ON purchase');
-        $this->addSql('ALTER TABLE purchase DROP costumer_id_id, DROP order_id_id');
+        $this->addSql('ALTER TABLE purchase DROP customer_id_id, DROP order_id_id');
     }
 }

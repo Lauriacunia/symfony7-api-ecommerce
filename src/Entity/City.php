@@ -18,7 +18,7 @@ class City
     #[ORM\Column(length: 50)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(targetEntity: Address::class, mappedBy: 'city_id')]
+    #[ORM\OneToMany(targetEntity: Address::class, mappedBy: 'city')]
     private Collection $addresses;
 
     public function __construct()
@@ -55,7 +55,7 @@ class City
     {
         if (!$this->addresses->contains($address)) {
             $this->addresses->add($address);
-            $address->setCityId($this);
+            $address->setCity($this);
         }
 
         return $this;
@@ -65,8 +65,8 @@ class City
     {
         if ($this->addresses->removeElement($address)) {
             // set the owning side to null (unless already changed)
-            if ($address->getCityId() === $this) {
-                $address->setCityId(null);
+            if ($address->getCity() === $this) {
+                $address->setCity(null);
             }
         }
 

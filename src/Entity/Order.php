@@ -21,7 +21,7 @@ class Order
     private ?\DateTimeInterface $created_at = null;
 
     #[ORM\OneToOne(mappedBy: 'order_id', cascade: ['persist', 'remove'])]
-    private ?Purchase $purchase_id = null;
+    private ?Purchase $purchase = null;
 
     #[ORM\ManyToMany(targetEntity: Product::class, inversedBy: 'orders')]
     private Collection $products;
@@ -50,17 +50,17 @@ class Order
 
     public function getPurchaseId(): ?Purchase
     {
-        return $this->purchase_id;
+        return $this->purchase;
     }
 
-    public function setPurchaseId(Purchase $purchase_id): static
+    public function setPurchaseId(Purchase $purchase): static
     {
         // set the owning side of the relation if necessary
-        if ($purchase_id->getOrderId() !== $this) {
-            $purchase_id->setOrderId($this);
+        if ($purchase->getOrder() !== $this) {
+            $purchase->setOrder($this);
         }
 
-        $this->purchase_id = $purchase_id;
+        $this->purchase = $purchase;
 
         return $this;
     }

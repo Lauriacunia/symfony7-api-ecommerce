@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\CostumerRepository;
+use App\Repository\CustomerRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: CostumerRepository::class)]
-class Costumer
+#[ORM\Entity(repositoryClass: CustomerRepository::class)]
+class Customer
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,10 +21,10 @@ class Costumer
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $phone_number = null;
 
-    #[ORM\OneToMany(targetEntity: Address::class, mappedBy: 'costumer_id')]
+    #[ORM\OneToMany(targetEntity: Address::class, mappedBy: 'customer')]
     private Collection $addresses;
 
-    #[ORM\OneToMany(targetEntity: Purchase::class, mappedBy: 'costumer_id')]
+    #[ORM\OneToMany(targetEntity: Purchase::class, mappedBy: 'customer')]
     private Collection $purchases;
 
     public function __construct()
@@ -74,7 +74,7 @@ class Costumer
     {
         if (!$this->addresses->contains($address)) {
             $this->addresses->add($address);
-            $address->setCostumerId($this);
+            $address->setCustomer($this);
         }
 
         return $this;
@@ -84,8 +84,8 @@ class Costumer
     {
         if ($this->addresses->removeElement($address)) {
             // set the owning side to null (unless already changed)
-            if ($address->getCostumerId() === $this) {
-                $address->setCostumerId(null);
+            if ($address->getCustomer() === $this) {
+                $address->setCustomer(null);
             }
         }
 
@@ -104,7 +104,7 @@ class Costumer
     {
         if (!$this->purchases->contains($purchase)) {
             $this->purchases->add($purchase);
-            $purchase->setCostumerId($this);
+            $purchase->setCustomer($this);
         }
 
         return $this;
@@ -114,8 +114,8 @@ class Costumer
     {
         if ($this->purchases->removeElement($purchase)) {
             // set the owning side to null (unless already changed)
-            if ($purchase->getCostumerId() === $this) {
-                $purchase->setCostumerId(null);
+            if ($purchase->getCustomer() === $this) {
+                $purchase->setCustomer(null);
             }
         }
 

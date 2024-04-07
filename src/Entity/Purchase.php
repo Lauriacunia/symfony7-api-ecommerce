@@ -18,11 +18,11 @@ class Purchase
     private ?\DateTimeInterface $created_at = null;
 
     #[ORM\ManyToOne(inversedBy: 'purchases')]
-    private ?Costumer $costumer_id = null;
+    private ?Customer $customer = null;
 
-    #[ORM\OneToOne(inversedBy: 'purchase_id', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'purchase', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Order $order_id = null;
+    private ?Order $order = null;
 
     public function getId(): ?int
     {
@@ -41,26 +41,26 @@ class Purchase
         return $this;
     }
 
-    public function getCostumerId(): ?Costumer
+    public function getCustomer(): ?Customer
     {
-        return $this->costumer_id;
+        return $this->customer;
     }
 
-    public function setCostumerId(?Costumer $costumer_id): static
+    public function setCustomer(?Customer $customer_id): static
     {
-        $this->costumer_id = $costumer_id;
+        $this->customer = $customer_id;
 
         return $this;
     }
 
-    public function getOrderId(): ?Order
+    public function getOrder(): ?Order
     {
-        return $this->order_id;
+        return $this->order;
     }
 
-    public function setOrderId(Order $order_id): static
+    public function setOrder(Order $order): static
     {
-        $this->order_id = $order_id;
+        $this->order = $order;
 
         return $this;
     }

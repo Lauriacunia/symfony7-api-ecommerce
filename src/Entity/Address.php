@@ -20,10 +20,10 @@ class Address
     private ?string $zipcode = null;
 
     #[ORM\ManyToOne(inversedBy: 'addresses')]
-    private ?City $city_id = null;
+    private ?City $city = null;
 
     #[ORM\ManyToOne(inversedBy: 'addresses')]
-    private ?Costumer $costumer_id = null;
+    private ?Customer $customer = null;
 
     public function getId(): ?int
     {
@@ -54,26 +54,26 @@ class Address
         return $this;
     }
 
-    public function getCityId(): ?City
+    public function getCity(): ?City
     {
-        return $this->city_id;
+        return $this->city;
     }
 
-    public function setCityId(?City $city_id): static
+    public function setCity(?City $city): static
     {
-        $this->city_id = $city_id;
+        $this->city = $city;
 
         return $this;
     }
 
-    public function getCostumerId(): ?Costumer
+    public function getCustomer(): ?Customer
     {
-        return $this->costumer_id;
+        return $this->customer;
     }
 
-    public function setCostumerId(?Costumer $costumer_id): static
+    public function setCustomer(?Customer $customer): static
     {
-        $this->costumer_id = $costumer_id;
+        $this->customer = $customer;
 
         return $this;
     }
